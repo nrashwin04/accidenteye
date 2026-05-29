@@ -6,6 +6,8 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red.svg)
 ![Status](https://img.shields.io/badge/Status-Work%20In%20Progress-yellow.svg)
 
+> 🚧 This project is actively being developed as part of my MSc Computer Science with AI dissertation project.
+
 ---
 
 ## What I'm building
@@ -44,6 +46,19 @@ On confirmed accident detection, the system triggers:
 
 ### API & Deployment
 A FastAPI backend serving predictions via REST endpoints, with a Streamlit frontend for live video analysis and alert configuration. Fully containerised with Docker.
+
+---
+
+## Planned architecture
+
+```
+Video feed → frame extraction → YOLOv8 detector
+    → ByteTrack object tracking
+    → temporal confirmation (5-frame rule)
+    → EfficientNet severity classifier
+    → alert trigger (WhatsApp + email)
+    → FastAPI response + Streamlit display
+```
 
 ---
 
@@ -89,6 +104,41 @@ Target: 1000+ labelled accident frames across varied conditions.
 
 ---
 
+## Project structure (planned)
+
+```
+accidenteye/
+├── app/
+│   ├── main.py               # FastAPI app
+│   ├── detector.py           # YOLOv8 inference
+│   ├── tracker.py            # ByteTrack integration
+│   ├── classifier.py         # severity classification
+│   ├── alerter.py            # WhatsApp + email alerts
+│   └── schemas.py            # Pydantic models
+├── training/
+│   ├── train_detector.py     # YOLOv8 fine-tuning
+│   ├── train_classifier.py   # EfficientNet training
+│   └── evaluate.py           # metrics and evaluation
+├── data/
+│   └── README.md             # dataset download instructions
+├── notebooks/
+│   └── exploration.ipynb     # EDA and prototyping
+├── app_ui.py                 # Streamlit frontend
+├── Dockerfile
+├── requirements.txt
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+---
+
+## Why this project
+
+Most student computer vision projects stop at "trained a model on a dataset." This project aims to go further — real dataset curation, temporal reasoning, production-style API design, alerting infrastructure, and deployment. The goal is something that demonstrates end-to-end ML engineering, not just model training.
+
+---
+
 ## Run locally (once complete)
 
 ```bash
@@ -101,3 +151,5 @@ uvicorn app.main:app --reload
 ```
 
 ---
+
+*MSc Computer Science with AI · CUSAT, Kochi · Solo project*
